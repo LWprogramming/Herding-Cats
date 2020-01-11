@@ -11,11 +11,11 @@ public class CatMovement : MonoBehaviour
     private GameObject home;
     private float homeRadius; // for convenience.
     private GameObject player;
+    private Score score; // reference to the Score script.
 
     public float restTimeAfterRun; // how long the cat should rest after running away from the player before starting random motion again.
     public float distanceToRun; // how close the player can get before the cat starts running away
     public float runAwaySpeed;
-    
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +27,8 @@ public class CatMovement : MonoBehaviour
         player = GameObject.Find("Player");
         catRigidBody = GetComponent<Rigidbody>();
         secondsSinceLastRun = 0f;
-        distanceToRun = 3f;
         isMovingRandomly = false;
+        score = GameObject.FindObjectOfType<Score>();
     }
 
     void FixedUpdate()
@@ -57,6 +57,11 @@ public class CatMovement : MonoBehaviour
 
         float distanceToHomeCenter = (this.transform.position - home.transform.position).magnitude;
         if (homeRadius - distanceToHomeCenter > homeRadius / 20) {
+            if (!isHome) {
+                // this is the first and only time we update the score.
+                // after this, we'll update isHome so we won't ever update the score again for the same cat.
+                score.updateScore();
+            }
             isHome = true; // if cat is home, it stays home
         }
         if (isHome) {

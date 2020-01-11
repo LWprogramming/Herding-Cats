@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   restTimeAfterRun: 3
-  distanceToRun: 3
-  runAwaySpeed: 2000
+  distanceToRun: 5
+  runAwaySpeed: 4000
 --- !u!54 &7372367940881901247
 Rigidbody:
   m_ObjectHideFlags: 0
